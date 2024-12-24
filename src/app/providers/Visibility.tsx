@@ -7,6 +7,7 @@ import clsx from "clsx";
 import { isEnvBrowser } from "../utils/misc";
 import { listen } from "../hooks/listen";
 import { observe } from "../hooks/observe";
+import { BrowserRouter } from "react-router-dom";
 
 export const VisibilityContext = createContext<NuiVisibilityFrame | null>(null);
 
@@ -34,15 +35,17 @@ export const VisibilityProvider = ({
         setVisible,
       }}
     >
-      <AnimationProvider show={visible}>
-        <div
-          className={clsx("h-screen", {
-            "bg-slate-800": isEnvBrowser(),
-          })}
-        >
-          {children}
-        </div>
-      </AnimationProvider>
+      <BrowserRouter>
+        <AnimationProvider show={visible}>
+          <div
+            className={clsx("h-screen", {
+              "bg-slate-800": isEnvBrowser(),
+            })}
+          >
+            {children}
+          </div>
+        </AnimationProvider>
+      </BrowserRouter>
     </VisibilityContext.Provider>
   );
 };
